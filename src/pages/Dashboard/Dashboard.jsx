@@ -10,16 +10,15 @@ import {
   ClockIcon,
   ShareIcon,
   ChatBubbleBottomCenterTextIcon,
-  ArrowRightIcon,  
   Cog6ToothIcon,
   ChevronDoubleRightIcon,
   ChevronDoubleLeftIcon,
 } from "@heroicons/react/24/solid";
 import Project from "./Project";
+import ProjectOverview from "./ProjectOverview"; // Import the new component
 
 // Placeholder components for each section.
 const DashboardContent = () => <div className="p-8"><h1>Dashboard Overview</h1></div>;
-const Projects = () => <div className="p-8"><h1>Projects</h1></div>;
 const Customers = () => <div className="p-8"><h1>Customers</h1></div>;
 const Team = () => <div className="p-8"><h1>Team Members</h1></div>;
 const Resources = () => <div className="p-8"><h1>Resources</h1></div>;
@@ -43,12 +42,11 @@ function Dashboard() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#E6EAF5]">
-      
       {/* Top Navigation Bar */}
       <header className="flex items-center justify-between p-4">
         <div className="flex items-center">
           <div className="text-xl font-semibold text-gray-800 font-main">
-            Good morning, <span className="text-[#4A90E2]  font-second">Maria</span>
+            Good morning, <span className="text-[#4A90E2] font-second">Maria</span>
           </div>
         </div>
         <div className="flex items-center space-x-4 mr-10">
@@ -72,10 +70,9 @@ function Dashboard() {
 
       {/* Main Layout: Sidebar & Content */}
       <div className="flex flex-1">
-        
         {/* Left Sidebar */}
         <aside 
-          className={`flex flex-col justify-between p-4 py-8 transition-all duration-300 ease-in-out shadow-lg  ${isSidebarOpen ? "w-64" : "w-20"}`}
+          className={`flex flex-col justify-between p-4 py-8 transition-all duration-300 ease-in-out shadow-lg ${isSidebarOpen ? "w-64" : "w-20"}`}
           style={{
             backdropFilter: "blur(10px)",
           }}
@@ -121,6 +118,7 @@ function Dashboard() {
             <Routes>
               <Route index element={<DashboardContent />} />
               <Route path="projects" element={<Project/>} />
+              <Route path="projects/:id" element={<ProjectOverview />} /> // New route for single project view
               <Route path="customers" element={<Customers />} />
               <Route path="team" element={<Team />} />
               <Route path="resources" element={<Resources />} />
