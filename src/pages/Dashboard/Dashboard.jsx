@@ -14,8 +14,9 @@ import {
   ChevronDoubleRightIcon,
   ChevronDoubleLeftIcon,
 } from "@heroicons/react/24/solid";
-import Project from "./Project";
-import ProjectOverview from "./ProjectOverview"; // Import the new component
+import ProjectOverview from "./project/ProjectOverview";
+import Project from "./project/Project";
+import Addproject from "./project/Addproject";
 
 // Placeholder components for each section.
 const DashboardContent = () => <div className="p-8"><h1>Dashboard Overview</h1></div>;
@@ -118,11 +119,12 @@ function Dashboard() {
             <Routes>
               <Route index element={<DashboardContent />} />
               <Route path="projects" element={<Project/>} />
-              <Route path="projects/:id" element={<ProjectOverview />} /> // New route for single project view
+              <Route path="projects/:id" element={<ProjectOverview />} />
               <Route path="customers" element={<Customers />} />
               <Route path="team" element={<Team />} />
               <Route path="resources" element={<Resources />} />
               <Route path="profile" element={<Profile />} />
+              <Route path="addproject" element={<Addproject />} />
             </Routes>
           </div>
         </main>

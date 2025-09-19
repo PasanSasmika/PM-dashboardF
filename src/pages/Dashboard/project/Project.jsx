@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { ArrowRightIcon } from "@heroicons/react/24/solid";
+import { Link, useNavigate } from "react-router-dom"; 
+import { ArrowRightIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { ClockIcon, UsersIcon } from "@heroicons/react/24/outline";
 
 function Project() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Initialize the hook
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -27,8 +27,9 @@ function Project() {
   }, []);
 
   const handleProjectClick = (projectId) => {
-    navigate(`/dashboard/projects/${projectId}`); // Navigate to the new URL
+    navigate(`/dashboard/projects/${projectId}`);
   };
+
 
   if (loading) {
     return <div className="p-8 font-main text-center">Loading projects...</div>;
@@ -41,8 +42,19 @@ function Project() {
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold font-main">Project Overview</h1>
-        <p className="font-second text-gray-600">Track progress along all active projects</p>
+        {/* Encapsulated title and subtitle */}
+        <div>
+          <h1 className="text-2xl font-semibold font-main">Project Overview</h1>
+          <p className="font-second text-gray-600">Track progress along all active projects</p>
+        </div>
+        
+       <Link to="/dashboard/addproject">
+        <button
+          className="flex items-center bg-gradient-to-r from-[#8a5cf6] to-[#4a90e2] text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8a5cf6]"
+        >
+          <PlusIcon className="h-5 w-5 mr-2" />
+          Add Project
+        </button></Link>
       </div>
       <div className="space-y-4">
         {projects.length > 0 ? (
