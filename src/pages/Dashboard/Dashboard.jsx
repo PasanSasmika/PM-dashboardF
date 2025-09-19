@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import {
   BellIcon,
   EnvelopeIcon,
@@ -13,6 +13,7 @@ import {
   Cog6ToothIcon,
   ChevronDoubleRightIcon,
   ChevronDoubleLeftIcon,
+  ArrowLeftOnRectangleIcon, // For Logout
 } from "@heroicons/react/24/solid";
 import ProjectOverview from "./project/ProjectOverview";
 import Project from "./project/Project";
@@ -27,6 +28,26 @@ const Profile = () => <div className="p-8"><h1>User Profile</h1></div>;
 
 function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Get user data from local storage
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+    } else {
+      // If no user data, redirect to login
+      navigate('/login');
+    }
+  }, [navigate]);
+
+  const handleLogout = () => {
+    // Clear local storage and redirect to login
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -47,7 +68,7 @@ function Dashboard() {
       <header className="flex items-center justify-between p-4">
         <div className="flex items-center">
           <div className="text-xl font-semibold text-gray-800 font-main">
-            Good morning, <span className="text-[#4A90E2] font-second">Maria</span>
+            Good morning, <span className="text-[#4A90E2] font-second">{user?.firstName || 'User'}</span>
           </div>
         </div>
         <div className="flex items-center space-x-4 mr-10">
@@ -62,10 +83,13 @@ function Dashboard() {
           <BellIcon className="h-6 w-6 text-gray-500 hover:text-[#4A90E2] cursor-pointer transition-colors" />
           <EnvelopeIcon className="h-6 w-6 text-gray-500 hover:text-[#4A90E2] cursor-pointer transition-colors" />
           <img
-            src="https://via.placeholder.com/32"
+            src={user?.profilepic || "https://via.placeholder.com/32"}
             alt="User profile"
             className="h-8 w-8 rounded-full border-2 border-[#4A90E2] cursor-pointer"
           />
+           <button onClick={handleLogout} className="p-2 text-gray-500 rounded-full hover:bg-gray-200" title="Logout">
+              <ArrowLeftOnRectangleIcon className="h-6 w-6"/>
+            </button>
         </div>
       </header>
 
