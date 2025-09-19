@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import {
-  BellIcon,
-  EnvelopeIcon,
   MagnifyingGlassIcon,
   Squares2X2Icon,
   BriefcaseIcon,
@@ -18,9 +16,9 @@ import {
 import ProjectOverview from "./project/ProjectOverview";
 import Project from "./project/Project";
 import Addproject from "./project/Addproject";
+import DashboardContent from "./DashboardContent/DashboardContent";
 
 // Placeholder components for each section.
-const DashboardContent = () => <div className="p-8"><h1>Dashboard Overview</h1></div>;
 const Customers = () => <div className="p-8"><h1>Customers</h1></div>;
 const Team = () => <div className="p-8"><h1>Team Members</h1></div>;
 const Resources = () => <div className="p-8"><h1>Resources</h1></div>;
@@ -80,8 +78,7 @@ function Dashboard() {
               className="pl-10 pr-4 py-2 font-second w-[400px] rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4A90E2]"
             />
           </div>
-          <BellIcon className="h-6 w-6 text-gray-500 hover:text-[#4A90E2] cursor-pointer transition-colors" />
-          <EnvelopeIcon className="h-6 w-6 text-gray-500 hover:text-[#4A90E2] cursor-pointer transition-colors" />
+          
           <img
             src={user?.profilepic || "https://via.placeholder.com/32"}
             alt="User profile"
