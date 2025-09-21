@@ -11,15 +11,17 @@ import {
   Cog6ToothIcon,
   ChevronDoubleRightIcon,
   ChevronDoubleLeftIcon,
-  ArrowLeftOnRectangleIcon, // For Logout
+  ArrowLeftOnRectangleIcon, 
 } from "@heroicons/react/24/solid";
 import ProjectOverview from "./project/ProjectOverview";
 import Project from "./project/Project";
 import Addproject from "./project/Addproject";
 import DashboardContent from "./DashboardContent/DashboardContent";
+import Customer from "./customers/Customer";
+import Addcustomer from "./customers/AddCustomer";
+import CustomerOverview from "./customers/CustomerOverview";
+import EditCustomer from "./customers/EditCUstomer";
 
-// Placeholder components for each section.
-const Customers = () => <div className="p-8"><h1>Customers</h1></div>;
 const Team = () => <div className="p-8"><h1>Team Members</h1></div>;
 const Resources = () => <div className="p-8"><h1>Resources</h1></div>;
 const Profile = () => <div className="p-8"><h1>User Profile</h1></div>;
@@ -30,18 +32,15 @@ function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Get user data from local storage
     const userData = localStorage.getItem('user');
     if (userData) {
       setUser(JSON.parse(userData));
     } else {
-      // If no user data, redirect to login
       navigate('/login');
     }
   }, [navigate]);
 
   const handleLogout = () => {
-    // Clear local storage and redirect to login
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     navigate('/login');
@@ -141,11 +140,15 @@ function Dashboard() {
               <Route index element={<DashboardContent />} />
               <Route path="projects" element={<Project/>} />
               <Route path="projects/:id" element={<ProjectOverview />} />
-              <Route path="customers" element={<Customers />} />
+              <Route path="customers" element={<Customer />} />
               <Route path="team" element={<Team />} />
               <Route path="resources" element={<Resources />} />
               <Route path="profile" element={<Profile />} />
               <Route path="addproject" element={<Addproject />} />
+              <Route path="addcustomer" element={<Addcustomer />} />
+              <Route path="customers/:id" element={<CustomerOverview />} />
+              <Route path="customers/edit/:id" element={<EditCustomer />} />
+
             </Routes>
           </div>
         </main>

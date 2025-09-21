@@ -25,7 +25,7 @@ function Signup() {
     try {
       await axios.post('http://localhost:5000/api/users/', formData);
       setLoading(false);
-      navigate('/login');
+      navigate('/');
     } catch (err) {
       setLoading(false);
       setError(err.response?.data?.message || 'Signup failed. Please try again.');
