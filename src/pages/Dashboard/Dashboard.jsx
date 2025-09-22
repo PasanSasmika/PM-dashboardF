@@ -232,12 +232,12 @@ function Dashboard() {
               </div>
             )}
           </div>
-          
+          <Link to="/dashboard/profile">
           <img
             src={user?.profilepic || "https://via.placeholder.com/32"}
             alt="User profile"
             className="h-8 w-8 rounded-full border-2 border-[#4A90E2] cursor-pointer"
-          />
+          /></Link>
         </div>
       </header>
 
