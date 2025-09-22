@@ -42,7 +42,7 @@ function Signup() {
             alt="Vogue Software Solutions Logo"
             className="h-16 w-16 rounded-full object-cover mb-4"
           />
-          <h1 className="text-3xl font-bold font-main text-gray-800">Vogue Software Solutions</h1>
+          <h1 className="text-2xl font-bold font-main text-gray-800">Vogue Software Solutions</h1>
           <h2 className="text-2xl font-semibold font-main text-gray-700 mt-2">Create Your Account</h2>
         </div>
         <form className="space-y-6" onSubmit={handleSubmit}>
@@ -119,7 +119,7 @@ function Signup() {
         </form>
         <p className="text-sm text-center text-gray-600 font-second">
           Already have an account?{' '}
-          <Link to="/login" className="font-medium text-[#4A90E2] hover:underline">
+          <Link to="/" className="font-medium text-[#4A90E2] hover:underline">
             Log in
           </Link>
         </p>
