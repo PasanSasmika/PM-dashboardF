@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {
   BriefcaseIcon,
@@ -7,20 +7,21 @@ import {
   ClipboardDocumentCheckIcon,
   PaperClipIcon,
   UserGroupIcon,
-  PencilIcon, // <-- Import PencilIcon
-  TrashIcon,   // <-- Import TrashIcon
-  HeartIcon,   // <-- Import HeartIcon
+  PencilIcon,
+  TrashIcon,
+  HeartIcon,
 } from "@heroicons/react/24/solid";
+import toast from 'react-hot-toast'; // Assuming you have react-hot-toast installed
 
 function ProjectOverview() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    // Check if the current project is in the favorites list in localStorage
     const favorites = JSON.parse(localStorage.getItem('favoriteProjects')) || [];
     setIsFavorite(favorites.includes(id));
 
@@ -50,28 +51,30 @@ function ProjectOverview() {
     let updatedFavorites;
 
     if (favorites.includes(id)) {
-      // Remove from favorites if it's already there
       updatedFavorites = favorites.filter(favId => favId !== id);
     } else {
-      // Add to favorites if it's not
       updatedFavorites = [...favorites, id];
     }
     
-    // Save the updated list back to localStorage
     localStorage.setItem('favoriteProjects', JSON.stringify(updatedFavorites));
-    // Update the UI
     setIsFavorite(!isFavorite);
+    toast.success(isFavorite ? 'Removed from favorites' : 'Added to favorites');
   };
 
   const handleEdit = () => {
-    // Add navigation to an edit page later
-    alert(`Edit project: ${project.name}`);
+    navigate(`/dashboard/projects/edit/${id}`);
   };
 
-  const handleDelete = () => {
-    // Add a confirmation modal and API call later
+  const handleDelete = async () => {
     if (window.confirm(`Are you sure you want to delete ${project.name}?`)) {
-        alert(`Deleting project: ${project.name}`);
+      try {
+        await axios.delete(`http://localhost:5000/api/projects/${id}`);
+        toast.success("Project deleted successfully!");
+        navigate('/dashboard/projects'); 
+      } catch (err) {
+        toast.error("Failed to delete project. Please try again.");
+        console.error("Error deleting project:", err);
+      }
     }
   };
 
