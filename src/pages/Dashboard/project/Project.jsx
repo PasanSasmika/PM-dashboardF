@@ -95,15 +95,6 @@ function Project() {
                   <span className={`px-3 py-1 text-sm font-semibold rounded-full ${statusStyle[project.status] || 'bg-gray-100 text-gray-800'}`}>
                     {project.status}
                   </span>
-                  <div className="w-48 h-2 rounded-full bg-gray-200">
-                    <div 
-                      className="h-full rounded-full bg-gradient-to-r from-[#8a5cf6] to-[#4a90e2]" 
-                      style={{ width: `${progress}%` }}>
-                    </div> 
-                  </div>
-                  <span className="text-gray-600 font-bold">
-                    {progress}%
-                  </span>
                   <button
                     onClick={() => handleProjectClick(project._id)} // Call the navigation function
                     className="p-2 rounded-full text-gray-400 hover:text-[#4A90E2] transition-colors"
