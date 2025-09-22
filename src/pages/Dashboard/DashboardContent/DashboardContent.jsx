@@ -37,7 +37,6 @@ const ProjectCard = ({ project }) => {
                 <span className={`px-3 py-1 text-sm font-semibold rounded-full ${statusStyle[project.status] || 'bg-gray-100 text-gray-800'}`}>
                     {project.status}
                 </span>
-                <span className="text-gray-600 font-bold w-10 text-right">{progress}%</span>
                 <button
                     onClick={() => navigate(`/dashboard/projects/${project._id}`)}
                     className="p-2 rounded-full text-gray-400 hover:text-[#4A90E2] transition-colors"

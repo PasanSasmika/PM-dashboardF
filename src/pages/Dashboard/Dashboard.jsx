@@ -27,8 +27,8 @@ import ResourceOverview from "./Resources/ResourcesOverview";
 import axios from "axios";
 import toast from "react-hot-toast";
 import logo from "/logo.png";
+import Profile from "../profile/Profile";
 
-const Profile = () => <div className="p-8"><h1>User Profile</h1></div>;
 
 function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
