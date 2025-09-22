@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ClockIcon, UsersIcon, ArrowRightIcon, PaperClipIcon, HeartIcon } from "@heroicons/react/24/solid";
-import { LineChart, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import ChartSection from '../../../components/ChartSections';
 
 const ProjectCard = ({ project }) => {
     const navigate = useNavigate();
@@ -83,9 +83,9 @@ const ResourceCard = ({ resource }) => {
 const DetailsCardSection = ({ projectCounts }) => {
     const cardData = [
         { title: "Planned projects", value: projectCounts.Planned || 0 },
-        { title: "Ongoing projects", value: projectCounts.Ongoing || 0,  },
-        { title: "On Hold projects", value: projectCounts['On Hold'] || 0, },
-        { title: "Completed projects", value: projectCounts.Completed || 0,  },
+        { title: "Ongoing projects", value: projectCounts.Ongoing || 0 },
+        { title: "On Hold projects", value: projectCounts['On Hold'] || 0 },
+        { title: "Completed projects", value: projectCounts.Completed || 0 },
     ];
 
     return (
@@ -98,57 +98,6 @@ const DetailsCardSection = ({ projectCounts }) => {
                     </div>
                 </div>
             ))}
-        </div>
-    );
-};
-
-const ChartSection = () => {
-    const chartData = [
-        { name: 'Jan', vacancies: 5, candidates: 20 },
-        { name: 'Feb', vacancies: 13, candidates: 22 },
-        { name: 'Mar', vacancies: 35, candidates: 25 },
-        { name: 'Apr', vacancies: 20, candidates: 22 },
-        { name: 'May', vacancies: 14, candidates: 24 },
-        { name: 'Jun', vacancies: 38, candidates: 26.5 },
-        { name: 'Jul', vacancies: 45, candidates: 27 },
-        { name: 'Aug', vacancies: 42, candidates: 26 },
-        { name: 'Sep', vacancies: 50, candidates: 28 },
-        { name: 'Oct', vacancies: 52, candidates: 30 },
-        { name: 'Nov', vacancies: 44, candidates: 22 },
-    ];
-
-    return (
-        <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-            <h2 className="text-xl font-semibold font-main mb-4">Vacancy Trends</h2>
-            <ResponsiveContainer width="100%" height={300}>
-                <AreaChart
-                    data={chartData}
-                    margin={{
-                        top: 10,
-                        right: 30,
-                        left: 0,
-                        bottom: 0,
-                    }}
-                >
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
-                    <XAxis dataKey="name" stroke="#6b7280" />
-                    <YAxis stroke="#6b7280" domain={[0, 60]} />
-                    <Tooltip />
-                    <Legend />
-                    <defs>
-                        <linearGradient id="colorVacancies" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#8a5cf6" stopOpacity={0.8}/>
-                            <stop offset="95%" stopColor="#8a5cf6" stopOpacity={0}/>
-                        </linearGradient>
-                        <linearGradient id="colorCandidates" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#4a90e2" stopOpacity={0.8}/>
-                            <stop offset="95%" stopColor="#4a90e2" stopOpacity={0}/>
-                        </linearGradient>
-                    </defs>
-                    <Area type="monotone" dataKey="vacancies" stroke="#8a5cf6" fillOpacity={1} fill="url(#colorVacancies)" />
-                    <Area type="monotone" dataKey="candidates" stroke="#ef4444" fillOpacity={1} fill="url(#colorCandidates)" />
-                </AreaChart>
-            </ResponsiveContainer>
         </div>
     );
 };

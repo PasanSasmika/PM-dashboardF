@@ -136,13 +136,14 @@ const confirmLogout = () => {
                 Logout
               </span>
             </button>
-          </div>
-          <button 
+            <button 
             onClick={toggleSidebar}
             className="p-3 rounded-full text-gray-800 hover:bg-gray-200 transition-colors self-center"
           >
             {isSidebarOpen ? <ChevronDoubleLeftIcon className="h-6 w-6" /> : <ChevronDoubleRightIcon className="h-6 w-6" />}
           </button>
+          </div>
+          
         </aside>
 
         {/* Main Content Area */}
