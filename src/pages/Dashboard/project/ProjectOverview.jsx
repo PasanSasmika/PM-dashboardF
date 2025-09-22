@@ -11,7 +11,7 @@ import {
   TrashIcon,
   HeartIcon,
 } from "@heroicons/react/24/solid";
-import toast from 'react-hot-toast'; // Assuming you have react-hot-toast installed
+import toast from 'react-hot-toast';
 
 function ProjectOverview() {
   const { id } = useParams();

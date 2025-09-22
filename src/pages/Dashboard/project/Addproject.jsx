@@ -20,7 +20,7 @@ function Addproject() {
   });
   const [teamMembers, setTeamMembers] = useState([{ name: '' }]);
   const [milestones, setMilestones] = useState([{ name: '', date: '' }]);
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]); // Changed to array for multiple files
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -72,7 +72,7 @@ function Addproject() {
   
   // --- File Handler ---
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    setFiles(e.target.files); // Store all selected files
   };
 
   // --- Form Submission ---
@@ -89,8 +89,8 @@ function Addproject() {
     
     const formData = new FormData();
     formData.append('projectData', JSON.stringify(finalProjectData));
-    if (file) {
-      formData.append('file', file);
+    for (let i = 0; i < files.length; i++) {
+      formData.append('files', files[i]); // Append each file
     }
 
     try {
@@ -101,15 +101,13 @@ function Addproject() {
       });
       setLoading(false);
       navigate('/dashboard/projects'); 
-    toast.success('Project added successfully!');
-
+      toast.success('Project added successfully!');
     } catch (err) {
       setLoading(false);
       setError('Failed to create project. Please check your data and try again.');
       console.error("Error creating project:", err);
     }
   };
-
 
   return (
     <div className="p-8 font-second bg-white rounded-lg shadow-md">
@@ -197,9 +195,9 @@ function Addproject() {
 
         {/* File Upload */}
         <div>
-            <h2 className="text-xl font-semibold text-gray-700 border-b pb-2">Project File</h2>
+            <h2 className="text-xl font-semibold text-gray-700 border-b pb-2">Project Files</h2> {/* Pluralized for clarity */}
             <div className="mt-4">
-                <input type="file" name="file" onChange={handleFileChange} required multiple className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#E6F0FA] file:text-[#4A90E2] hover:file:bg-[#d1e0f3]"/>
+                <input type="file" name="files" onChange={handleFileChange} multiple className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#E6F0FA] file:text-[#4A90E2] hover:file:bg-[#d1e0f3]"/>
             </div>
         </div>
 
@@ -217,4 +215,3 @@ function Addproject() {
 }
 
 export default Addproject;
-
