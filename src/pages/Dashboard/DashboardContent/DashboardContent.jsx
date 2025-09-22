@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { ClockIcon, UsersIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { ClockIcon, UsersIcon, ArrowRightIcon, PaperClipIcon, HeartIcon } from "@heroicons/react/24/solid";
+import { LineChart, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 const ProjectCard = ({ project }) => {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ const ProjectCard = ({ project }) => {
     const statusStyle = {
         'Planned': 'bg-pink-100 text-pink-800',
         'Ongoing': 'bg-yellow-100 text-yellow-800',
-        'In Review': 'bg-blue-100 text-blue-800',
+        'On Hold': 'bg-blue-100 text-blue-800',
         'Completed': 'bg-green-100 text-green-800',
     };
 
@@ -52,57 +53,201 @@ const ProjectCard = ({ project }) => {
     );
 };
 
+const ResourceCard = ({ resource }) => {
+    const navigate = useNavigate();
+
+    return (
+        <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between font-second transition-shadow hover:shadow-xl">
+            <div className="flex-1">
+                <h3 className="text-lg font-bold text-gray-800">{resource.name}</h3>
+                <div className="flex items-center text-sm text-gray-500 space-x-4 mt-1">
+                    <div className="flex items-center">
+                        <PaperClipIcon className="h-4 w-4 mr-1" />
+                        <span>{resource.files.length} files</span>
+                    </div>
+                </div>
+            </div>
+            <div className="flex items-center space-x-4">
+                <button
+                    onClick={() => navigate(`/dashboard/resources/${resource._id}`)}
+                    className="p-2 rounded-full text-gray-400 hover:text-[#4A90E2] transition-colors"
+                    title={`View ${resource.name}`}
+                >
+                    <ArrowRightIcon className="h-6 w-6" />
+                </button>
+            </div>
+        </div>
+    );
+};
+
+const DetailsCardSection = ({ projectCounts }) => {
+    const cardData = [
+        { title: "Planned projects", value: projectCounts.Planned || 0 },
+        { title: "Ongoing projects", value: projectCounts.Ongoing || 0,  },
+        { title: "On Hold projects", value: projectCounts['On Hold'] || 0, },
+        { title: "Completed projects", value: projectCounts.Completed || 0,  },
+    ];
+
+    return (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {cardData.map((card, index) => (
+                <div key={index} className="bg-white p-6 rounded-lg shadow-md font-second">
+                    <div className="text-gray-600 mb-2">{card.title}</div>
+                    <div className="flex items-end">
+                        <div className="text-3xl font-bold">{card.value}</div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+};
+
+const ChartSection = () => {
+    const chartData = [
+        { name: 'Jan', vacancies: 5, candidates: 20 },
+        { name: 'Feb', vacancies: 13, candidates: 22 },
+        { name: 'Mar', vacancies: 35, candidates: 25 },
+        { name: 'Apr', vacancies: 20, candidates: 22 },
+        { name: 'May', vacancies: 14, candidates: 24 },
+        { name: 'Jun', vacancies: 38, candidates: 26.5 },
+        { name: 'Jul', vacancies: 45, candidates: 27 },
+        { name: 'Aug', vacancies: 42, candidates: 26 },
+        { name: 'Sep', vacancies: 50, candidates: 28 },
+        { name: 'Oct', vacancies: 52, candidates: 30 },
+        { name: 'Nov', vacancies: 44, candidates: 22 },
+    ];
+
+    return (
+        <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 className="text-xl font-semibold font-main mb-4">Vacancy Trends</h2>
+            <ResponsiveContainer width="100%" height={300}>
+                <AreaChart
+                    data={chartData}
+                    margin={{
+                        top: 10,
+                        right: 30,
+                        left: 0,
+                        bottom: 0,
+                    }}
+                >
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
+                    <XAxis dataKey="name" stroke="#6b7280" />
+                    <YAxis stroke="#6b7280" domain={[0, 60]} />
+                    <Tooltip />
+                    <Legend />
+                    <defs>
+                        <linearGradient id="colorVacancies" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#8a5cf6" stopOpacity={0.8}/>
+                            <stop offset="95%" stopColor="#8a5cf6" stopOpacity={0}/>
+                        </linearGradient>
+                        <linearGradient id="colorCandidates" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#4a90e2" stopOpacity={0.8}/>
+                            <stop offset="95%" stopColor="#4a90e2" stopOpacity={0}/>
+                        </linearGradient>
+                    </defs>
+                    <Area type="monotone" dataKey="vacancies" stroke="#8a5cf6" fillOpacity={1} fill="url(#colorVacancies)" />
+                    <Area type="monotone" dataKey="candidates" stroke="#ef4444" fillOpacity={1} fill="url(#colorCandidates)" />
+                </AreaChart>
+            </ResponsiveContainer>
+        </div>
+    );
+};
+
+// Main dashboard content component
 const DashboardContent = () => {
     const [favoriteProjects, setFavoriteProjects] = useState([]);
+    const [savedResources, setSavedResources] = useState([]);
+    const [projectCounts, setProjectCounts] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchFavoriteProjects = async () => {
+        const fetchAllData = async () => {
             try {
-                const favoriteIds = JSON.parse(localStorage.getItem('favoriteProjects')) || [];
-                if (favoriteIds.length === 0) {
-                    setLoading(false);
-                    return;
-                }
-                const response = await axios.get('http://localhost:5000/api/projects');
-                const allProjects = response.data;
-                const favorites = allProjects.filter(project => favoriteIds.includes(project._id));
-                setFavoriteProjects(favorites);
+                // Fetch all projects to get the counts
+                const allProjectsResponse = await axios.get('http://localhost:5000/api/projects');
+                const allProjects = allProjectsResponse.data;
+
+                // Calculate project counts by status
+                const counts = allProjects.reduce((acc, project) => {
+                    acc[project.status] = (acc[project.status] || 0) + 1;
+                    return acc;
+                }, {});
+                setProjectCounts(counts);
+
+                // Fetch favorite project IDs and resource IDs from localStorage
+                const favoriteProjectIds = JSON.parse(localStorage.getItem('favoriteProjects')) || [];
+                const favoriteResourceIds = JSON.parse(localStorage.getItem('favoriteResources')) || [];
+
+                // Filter all projects for bookmarked ones
+                const bookmarkedProjectsData = allProjects.filter(project => favoriteProjectIds.includes(project._id));
+                setFavoriteProjects(bookmarkedProjectsData);
+
+                // Fetch all resources and filter for saved ones
+                const resourceResponse = await axios.get('http://localhost:5000/api/resources');
+                const allResources = resourceResponse.data;
+                const savedResourcesData = allResources.filter(resource => favoriteResourceIds.includes(resource._id));
+                setSavedResources(savedResourcesData);
+
             } catch (err) {
-                console.error("Failed to fetch favorite projects:", err);
-                setError("Could not load favorite projects.");
+                console.error("Failed to fetch data:", err);
+                setError("Could not load dashboard data.");
             } finally {
                 setLoading(false);
             }
         };
-        fetchFavoriteProjects();
+        fetchAllData();
     }, []);
 
     if (loading) return <div className="p-8 font-main text-center">Loading Dashboard...</div>;
     if (error) return <div className="p-8 font-main text-center text-red-500">{error}</div>;
 
     return (
-        <div>
+        <div className="p-8">
             <h1 className="text-3xl font-bold font-main text-gray-800 mb-6">Dashboard Overview</h1>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-    <h2 className="text-xl font-semibold font-main mb-4 flex items-center">
-        
-        Book Mark Projects
-    </h2>
-    {favoriteProjects.length > 0 ? (
-        <div className="space-y-4">
-            {favoriteProjects.map(project => (
-                <ProjectCard key={project._id} project={project} />
-            ))}
-        </div>
-    ) : (
-        <div className="text-center text-gray-500 py-10 border-2 border-dashed rounded-lg">
-            <p className="font-semibold">No favorite projects yet!</p>
-            <p className="text-sm mt-2">Click the ❤️ icon on a project's page to pin it to your dashboard.</p>
-        </div>
-    )}
-</div>
+            
+            <DetailsCardSection projectCounts={projectCounts} />
+            <ChartSection />
+
+            {/* Favorite Projects Section */}
+            <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h2 className="text-xl font-semibold font-main mb-4 flex items-center">
+                    <HeartIcon className="h-6 w-6 mr-2 text-red-500" />
+                    Bookmarked Projects
+                </h2>
+                {favoriteProjects.length > 0 ? (
+                    <div className="space-y-4">
+                        {favoriteProjects.map(project => (
+                            <ProjectCard key={project._id} project={project} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center text-gray-500 py-10 border-2 border-dashed rounded-lg">
+                        <p className="font-semibold">No bookmarked projects yet!</p>
+                        <p className="text-sm mt-2">Click the ❤️ icon on a project's page to pin it to your dashboard.</p>
+                    </div>
+                )}
+            </div>
+
+            {/* Saved Resources Section */}
+            <div className="bg-white p-6 rounded-lg shadow-md">
+                <h2 className="text-xl font-semibold font-main mb-4 flex items-center">
+                    <HeartIcon className="h-6 w-6 mr-2 text-red-500" />
+                    Saved Resources
+                </h2>
+                {savedResources.length > 0 ? (
+                    <div className="space-y-4">
+                        {savedResources.map(resource => (
+                            <ResourceCard key={resource._id} resource={resource} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center text-gray-500 py-10 border-2 border-dashed rounded-lg">
+                        <p className="font-semibold">No saved resources yet!</p>
+                        <p className="text-sm mt-2">Click the ❤️ icon on a resource's page to pin it to your dashboard.</p>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

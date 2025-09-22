@@ -23,8 +23,10 @@ import EditCustomer from "./customers/EditCUstomer";
 import EditProject from "./project/EditProject";
 import toast from "react-hot-toast";
 import logo from "/logo.png";
+import Resources from "./Resources/Resources";
+import AddResources from "./Resources/AddResources";
+import ResourceOverview from "./Resources/ResourcesOverview";
 
-const Resources = () => <div className="p-8"><h1>Resources</h1></div>;
 const Profile = () => <div className="p-8"><h1>User Profile</h1></div>;
 
 function Dashboard() {
@@ -155,9 +157,11 @@ const confirmLogout = () => {
               <Route path="profile" element={<Profile />} />
               <Route path="addproject" element={<Addproject />} />
               <Route path="addcustomer" element={<Addcustomer />} />
+                <Route path="addresources" element={<AddResources />} />
               <Route path="customers/:id" element={<CustomerOverview />} />
+              <Route path="resources/:id" element={<ResourceOverview />} />
               <Route path="customers/edit/:id" element={<EditCustomer />} />
-                      <Route path="/projects/edit/:id" element={<EditProject />} />
+                <Route path="/projects/edit/:id" element={<EditProject />} />
 
 
             </Routes>
