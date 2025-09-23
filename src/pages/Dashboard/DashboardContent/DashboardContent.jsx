@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ClockIcon, UsersIcon, ArrowRightIcon, PaperClipIcon, HeartIcon } from "@heroicons/react/24/solid";
 import ChartSection from '../../../components/ChartSections';
+import { BookMarked } from 'lucide-react';
 
 const ProjectCard = ({ project }) => {
     const navigate = useNavigate();
@@ -157,7 +158,7 @@ const DashboardContent = () => {
             {/* Favorite Projects Section */}
             <div className="p-6 rounded-lg text-gray-800 shadow-md mb-6">
                 <h2 className="text-xl font-semibold font-main mb-4 flex items-center">
-                    <HeartIcon className="h-6 w-6 mr-2 text-red-500" />
+                    <BookMarked className="h-6 w-6 mr-2 text-red-500" />
                     Bookmarked Projects
                 </h2>
                 {favoriteProjects.length > 0 ? (

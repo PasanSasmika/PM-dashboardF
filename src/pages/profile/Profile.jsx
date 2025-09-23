@@ -15,7 +15,7 @@ function Profile() {
     // Initialize theme from localStorage or system preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
-      return savedTheme === 'luxury';
+      return savedTheme === 'black';
     }
     // Fallback to system preference
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -24,9 +24,9 @@ function Profile() {
 
   useEffect(() => {
     // Set the theme on initial load
-    document.documentElement.setAttribute('data-theme', isDarkMode ? 'luxury' : 'light');
+    document.documentElement.setAttribute('data-theme', isDarkMode ? 'black' : 'light');
     // Save the theme to localStorage
-    localStorage.setItem('theme', isDarkMode ? 'luxury' : 'light');
+    localStorage.setItem('theme', isDarkMode ? 'black' : 'light');
   }, [isDarkMode]);
 
   useEffect(() => {
