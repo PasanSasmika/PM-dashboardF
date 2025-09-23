@@ -3,7 +3,6 @@ import Dashboard from "./pages/Dashboard/Dashboard"
 import Login from "./pages/auth/login"
 import Signup from "./pages/auth/signup"
 import { useEffect, useState } from "react";
-// import Mode from "./components/Mode";
 
 
 
@@ -20,7 +19,6 @@ function App() {
         <Route path='/dashboard/*' element={<Dashboard/>}/>
         <Route path='/' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
-        {/* <Route path="/mode" element={<Mode theme={theme} setTheme={setTheme} />} /> */}
 
       </Routes>
     </>

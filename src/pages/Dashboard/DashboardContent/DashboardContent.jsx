@@ -149,7 +149,7 @@ const DashboardContent = () => {
 
     return (
         <div className="p-8">
-            <h1 className="text-3xl font-bold font-main text-gray-800 mb-6">Dashboard Overview</h1>
+            <h1 className="text-3xl font-bold font-main  mb-6">Dashboard Overview</h1>
             
             <DetailsCardSection projectCounts={projectCounts} />
             <ChartSection />
