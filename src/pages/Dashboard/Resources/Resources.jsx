@@ -51,7 +51,7 @@ const response = await axios.get('http://localhost:5000/api/resources');
   return (
     <div className="p-8 font-second">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold font-main text-gray-800">Resources</h1>
+        <h1 className="text-3xl font-bold font-main ">Resources</h1>
         <Link to="/dashboard/addresources" className="inline-flex items-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-[#8a5cf6] to-[#4a90e2] hover:from-[#7b4fe0] hover:to-[#3b82d9] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8a5cf6]">
           <PlusIcon className="h-5 w-5 mr-2" /> Add Resource
         </Link>
@@ -59,7 +59,7 @@ const response = await axios.get('http://localhost:5000/api/resources');
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {resources.map((resource) => (
-          <div key={resource._id} className="bg-white p-6 rounded-lg shadow-md">
+          <div key={resource._id} className="p-6 rounded-lg shadow-md">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold text-gray-800">{resource.name}</h2>
               <div className="flex space-x-2">

@@ -62,7 +62,7 @@ function EditCustomer() {
   }
 
   return (
-    <div className="p-8 font-second bg-white rounded-lg shadow-md">
+    <div className="p-8 font-second  rounded-lg shadow-md">
       <h1 className="text-3xl font-bold font-main text-gray-800 mb-6">Edit Customer</h1>
       
       <form onSubmit={handleSubmit} className="space-y-6">

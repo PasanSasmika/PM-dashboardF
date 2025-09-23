@@ -54,8 +54,8 @@ const ChartSection = () => {
     if (error) return <div className="p-4 font-main text-center text-red-500">{error}</div>;
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-            <h2 className="text-xl font-semibold font-main mb-4">Project Status Trends</h2>
+        <div className=" p-6 rounded-lg shadow-md mb-8">
+            <h2 className="text-xl text-gray-600 font-semibold font-main mb-4">Project Status Trends</h2>
             <ResponsiveContainer width="100%" height={300}>
                 <AreaChart
                     data={chartData}

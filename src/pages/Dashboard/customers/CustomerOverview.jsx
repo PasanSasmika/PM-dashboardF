@@ -88,7 +88,7 @@ function CustomerOverview() {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Customer Details */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className=" p-6 rounded-lg shadow-md">
           <h2 className="text-xl font-semibold mb-4 flex items-center"><UserIcon className="h-6 w-6 mr-2 text-[#4A90E2]" />Contact Information</h2>
           <div className="space-y-4">
             <p className="flex items-center">

@@ -138,7 +138,7 @@ function Dashboard() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#E6EAF5]">
+    <div className="flex flex-col min-h-screen ">
       {/* Top Navigation Bar */}
       <header className="flex items-center justify-between p-4">
         <div className="flex items-center">
@@ -164,7 +164,7 @@ function Dashboard() {
             />
             {/* Search Results Dropdown */}
             {searchQuery && (
-              <div className="absolute z-10 w-full mt-2 bg-white rounded-lg shadow-lg max-h-96 overflow-y-auto">
+              <div className="absolute z-10 w-full mt-2  rounded-lg shadow-lg max-h-96 overflow-y-auto">
                 {isSearching && (
                   <div className="p-4 text-center text-gray-500 font-second">
                     Searching...
@@ -257,7 +257,7 @@ function Dashboard() {
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`flex items-center font-second gap-4 w-full p-3 rounded-lg text-gray-800 hover:bg-[#E6F0FA] hover:text-[#4A90E2] transition-colors duration-300 ease-in-out ${isSidebarOpen ? 'justify-start' : 'justify-center'}`}
+                  className={`flex items-center font-second gap-4 w-full p-3 rounded-lg hover:text-[#4A90E2] transition-colors duration-300 ease-in-out ${isSidebarOpen ? 'justify-start' : 'justify-center'}`}
                 >
                   <Icon className="h-6 w-6" />
                   <span className={`whitespace-nowrap transition-opacity duration-300 ${isSidebarOpen ? "opacity-100" : "opacity-0 absolute -z-10"}`}>
@@ -290,7 +290,7 @@ function Dashboard() {
 
         {/* Main Content Area */}
         <main className="flex-1 p-8">
-          <div className="h-full w-full rounded-lg bg-[#edeef2] shadow-lg p-6">
+          <div className="h-full w-full rounded-lg  shadow-lg p-6">
             <Routes>
               <Route index element={<DashboardContent />} />
               <Route path="projects" element={<Project />} />
@@ -313,7 +313,7 @@ function Dashboard() {
       {/* Logout Confirmation Popup */}
       {showLogoutPopup && (
         <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-[#E6EAF5] p-6 rounded-lg shadow-xl max-w-sm w-full">
+          <div className="p-6 rounded-lg shadow-xl max-w-sm w-full">
             <h2 className="text-xl font-bold mb-4 font-main">Confirm Logout</h2>
             <p className="mb-6 font-second">Are you sure you want to log out?</p>
             <div className="flex justify-end space-x-4">

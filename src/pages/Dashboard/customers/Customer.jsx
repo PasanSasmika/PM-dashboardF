@@ -65,7 +65,7 @@ function Customer() {
           customers.map((customer) => (
             <div
               key={customer._id}
-              className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between font-second"
+              className=" p-6 rounded-lg shadow-md flex items-center justify-between font-second"
             >
               <div className="flex-1">
                 <h3 className="text-lg font-bold text-gray-800">{customer.name}</h3>

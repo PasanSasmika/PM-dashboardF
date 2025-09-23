@@ -18,7 +18,7 @@ const ProjectCard = ({ project }) => {
     };
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between font-second transition-shadow hover:shadow-xl">
+        <div className=" p-6 rounded-lg shadow-md flex items-center justify-between font-second transition-shadow hover:shadow-xl">
             <div className="flex-1">
                 <h3 className="text-lg font-bold text-gray-800">{project.name}</h3>
                 <div className="flex items-center text-sm text-gray-500 space-x-4 mt-1">
@@ -53,7 +53,7 @@ const ResourceCard = ({ resource }) => {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between font-second transition-shadow hover:shadow-xl">
+        <div className="p-6 rounded-lg shadow-md flex items-center justify-between font-second transition-shadow hover:shadow-xl">
             <div className="flex-1">
                 <h3 className="text-lg font-bold text-gray-800">{resource.name}</h3>
                 <div className="flex items-center text-sm text-gray-500 space-x-4 mt-1">
@@ -87,7 +87,7 @@ const DetailsCardSection = ({ projectCounts }) => {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {cardData.map((card, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-md font-second">
+                <div key={index} className=" p-6 rounded-lg shadow-md font-second">
                     <div className="text-gray-600 mb-2">{card.title}</div>
                     <div className="flex items-end">
                         <div className="text-3xl font-bold">{card.value}</div>
@@ -155,7 +155,7 @@ const DashboardContent = () => {
             <ChartSection />
 
             {/* Favorite Projects Section */}
-            <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+            <div className="p-6 rounded-lg text-gray-800 shadow-md mb-6">
                 <h2 className="text-xl font-semibold font-main mb-4 flex items-center">
                     <HeartIcon className="h-6 w-6 mr-2 text-red-500" />
                     Bookmarked Projects
@@ -175,8 +175,8 @@ const DashboardContent = () => {
             </div>
 
             {/* Saved Resources Section */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-                <h2 className="text-xl font-semibold font-main mb-4 flex items-center">
+            <div className=" p-6 rounded-lg shadow-md">
+                <h2 className="text-xl font-semibold text-gray-800 font-main mb-4 flex items-center">
                     <HeartIcon className="h-6 w-6 mr-2 text-red-500" />
                     Saved Resources
                 </h2>

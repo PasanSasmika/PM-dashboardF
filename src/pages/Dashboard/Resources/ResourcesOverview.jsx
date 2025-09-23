@@ -86,7 +86,7 @@ const foundResource = response.data;
         </div>
       </div>
       
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className=" p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold mb-4 flex items-center"><PaperClipIcon className="h-6 w-6 mr-2 text-[#4A90E2]" />Files</h2>
         <ul className="space-y-2">
           {resource.files.map((file) => (
