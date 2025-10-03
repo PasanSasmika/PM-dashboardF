@@ -11,6 +11,7 @@ import {
   ChevronDoubleLeftIcon,
   DocumentDuplicateIcon,
   ArrowUturnRightIcon,
+  BuildingOffice2Icon,
 } from "@heroicons/react/24/solid";
 import ProjectOverview from "./project/ProjectOverview";
 import Project from "./project/Project";
@@ -28,6 +29,10 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import logo from "/logo.png";
 import Profile from "../profile/Profile";
+import Organization from "./Organizations/organizations";
+import AddOrganization from "./Organizations/addorganizations";
+import OrganizationOverview from "./Organizations/organizationOverview";
+import EditOrganization from "./Organizations/editOrganization";
 
 
 function Dashboard() {
@@ -135,6 +140,8 @@ function Dashboard() {
     { name: "Customers", path: "/dashboard/customers", icon: UsersIcon },
     { name: "Resources", path: "/dashboard/resources", icon: DocumentDuplicateIcon },
     { name: "Profile", path: "/dashboard/profile", icon: UserIcon },
+    { name: "Organizations", path: "/dashboard/organization", icon: BuildingOffice2Icon },
+
   ];
 
   return (
@@ -298,6 +305,9 @@ function Dashboard() {
               <Route path="customers" element={<Customer />} />
               <Route path="resources" element={<Resources />} />
               <Route path="profile" element={<Profile />} />
+              <Route path="organization" element={<Organization />} />
+              <Route path="addorganization" element={<AddOrganization />} />
+              <Route path="organizations/:id" element={<OrganizationOverview />} />
               <Route path="addproject" element={<Addproject />} />
               <Route path="addcustomer" element={<Addcustomer />} />
               <Route path="addresources" element={<AddResources />} />
@@ -305,6 +315,7 @@ function Dashboard() {
               <Route path="resources/:id" element={<ResourceOverview />} />
               <Route path="customers/edit/:id" element={<EditCustomer />} />
               <Route path="projects/edit/:id" element={<EditProject />} />
+              <Route path="organizations/edit/:id" element={<EditOrganization />} />
             </Routes>
           </div>
         </main>
