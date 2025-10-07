@@ -558,7 +558,6 @@ function OrganizationOverview() {
                   <ul className="space-y-2 text-sm text-gray-600 max-h-40 overflow-y-auto bg-gray-50 p-3 rounded-lg">
                     {project.done.map((task, tIndex) => (
                       <li key={tIndex} className="flex items-start p-3 bg-white rounded-md shadow-sm border-l-4 border-green-200">
-                        <CheckCircleIcon className="h-4 w-4 mr-2 text-green-400 flex-shrink-0 mt-0.5" />
                         <span className="flex-1 break-words text-gray-800">{task}</span>
                       </li>
                     ))}
@@ -573,7 +572,6 @@ function OrganizationOverview() {
                   <ul className="space-y-2 text-sm text-gray-600 max-h-40 overflow-y-auto bg-gray-50 p-3 rounded-lg">
                     {project.todo.map((task, tIndex) => (
                       <li key={tIndex} className="flex items-start p-3 bg-white rounded-md shadow-sm border-l-4 border-yellow-200">
-                        <ExclamationTriangleIcon className="h-4 w-4 mr-2 text-yellow-400 flex-shrink-0 mt-0.5" />
                         <span className="flex-1 break-words text-gray-800">{task}</span>
                       </li>
                     ))}
