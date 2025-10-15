@@ -27,7 +27,7 @@ function ProjectOverview() {
 
     const fetchProject = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/projects`);
+const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/projects`);
         const foundProject = response.data.find(p => p._id === id);
         if (foundProject) {
           setProject(foundProject);
@@ -68,7 +68,7 @@ function ProjectOverview() {
   const handleDelete = async () => {
     if (window.confirm(`Are you sure you want to delete ${project.name}?`)) {
       try {
-        await axios.delete(`http://localhost:5000/api/projects/${id}`);
+await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/projects/${id}`);
         toast.success("Project deleted successfully!");
         navigate('/dashboard/projects'); 
       } catch (err) {
@@ -173,8 +173,8 @@ function ProjectOverview() {
             <ul className="space-y-2">
                 {project.files.map((file) => (
                 <li key={file._id} className="flex items-center text-blue-500 hover:underline">
-                    <a href={`http://localhost:5000${file.url}`} target="_blank" rel="noopener noreferrer">
-                    {file.fileName}
+<a href={`${import.meta.env.VITE_BACKEND_URL}${file.url}`} target="_blank" rel="noopener noreferrer">
+                      {file.fileName}
                     </a>
                     <span className="ml-auto text-sm text-gray-500">{file.fileType}</span>
                 </li>

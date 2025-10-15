@@ -71,8 +71,8 @@ function Dashboard() {
     try {
       // Single backend call for unified search
       const response = await axios.get(
-        `http://localhost:5000/api/search?q=${encodeURIComponent(searchQuery.trim())}`
-      );
+  `${import.meta.env.VITE_BACKEND_URL}/api/search?q=${encodeURIComponent(searchQuery.trim())}`
+);
 
       setSearchResults(response.data); // Directly use backend response (already categorized)
     } catch (err) {

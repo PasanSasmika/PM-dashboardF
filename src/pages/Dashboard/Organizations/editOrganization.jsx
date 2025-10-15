@@ -21,8 +21,8 @@ function EditOrganization() {
   useEffect(() => {
     const fetchOrganization = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/organizations/${id}`);
-        const { name, address, status, contactDetails } = response.data;
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/organizations/${id}`);
+const { name, address, status, contactDetails } = response.data;
         // Normalize contacts if needed
         const normalizedContacts = contactDetails.map(contact => ({
           ...contact,
@@ -87,7 +87,7 @@ function EditOrganization() {
     try {
       // Send only org fields (no projects to avoid overwriting)
       const { projects, documents, ...updateData } = organizationData;
-      await axios.put(`http://localhost:5000/api/organizations/${id}`, updateData);
+await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/organizations/${id}`, updateData);
       
       setLoading(false);
       navigate(`/dashboard/organizations/${id}`);

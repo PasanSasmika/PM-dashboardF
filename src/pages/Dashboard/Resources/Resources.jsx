@@ -14,7 +14,7 @@ function Resources() {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-const response = await axios.get('http://localhost:5000/api/resources');
+const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/resources`);
         setResources(response.data);
       } catch (err) {
         setError('Failed to fetch resources.');
@@ -30,7 +30,7 @@ const response = await axios.get('http://localhost:5000/api/resources');
   const handleDelete = async (id, name) => {
     if (window.confirm(`Are you sure you want to delete ${name}?`)) {
       try {
-        await axios.delete(`http://localhost:5000/api/resources/${id}`);
+await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/resources/${id}`);
         setResources(resources.filter(res => res._id !== id));
         toast.success('Resource deleted successfully!');
       } catch (err) {

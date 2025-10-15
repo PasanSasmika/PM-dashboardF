@@ -27,7 +27,7 @@ function EditProject() {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/projects`);
+const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/projects`);
         const foundProject = response.data.find(p => p._id === id);
         if (foundProject) {
           // Format dates to YYYY-MM-DD for input fields
@@ -72,7 +72,7 @@ function EditProject() {
     setError('');
 
     try {
-      await axios.put(`http://localhost:5000/api/projects/${id}`, projectData);
+await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/projects/${id}`, projectData);
       setLoading(false);
       navigate(`/dashboard/projects/${id}`);
       toast.success('Project updated successfully!');

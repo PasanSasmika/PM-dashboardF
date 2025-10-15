@@ -27,8 +27,8 @@ function Addcustomer() {
     setError('');
 
     try {
-      await axios.post('http://localhost:5000/api/customers', customerData);
-      setLoading(false);
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/customers`, customerData);
+setLoading(false);
       navigate('/dashboard/customers');
       toast.success('Customer added successfully!');
     } catch (err) {

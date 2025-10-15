@@ -24,7 +24,10 @@ function Signup() {
     setError('');
 
     try {
-      await axios.post('http://localhost:5000/api/users/', formData);
+      await axios.post(
+  `${import.meta.env.VITE_BACKEND_URL}/api/users/`,
+  formData
+);
       setLoading(false);
       navigate('/');
     } catch (err) {

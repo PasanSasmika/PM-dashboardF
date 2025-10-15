@@ -18,7 +18,7 @@ function ResourceOverview() {
 
     const fetchResource = async () => {
       try {
-const response = await axios.get(`http://localhost:5000/api/resources/${id}`);
+const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/resources/${id}`);
 const foundResource = response.data;
         if (foundResource) {
           setResource(foundResource);
@@ -54,7 +54,7 @@ const foundResource = response.data;
   const handleDelete = async () => {
     if (window.confirm(`Are you sure you want to delete ${resource.name}?`)) {
       try {
-        await axios.delete(`http://localhost:5000/api/resources/${id}`);
+await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/resources/${id}`);
         toast.success("Resource deleted successfully!");
         navigate('/dashboard/resources'); 
       } catch (err) {
@@ -91,8 +91,7 @@ const foundResource = response.data;
         <ul className="space-y-2">
           {resource.files.map((file) => (
             <li key={file._id} className="flex items-center text-blue-500 hover:underline">
-              <a href={`http://localhost:5000${file.url}`} target="_blank" rel="noopener noreferrer">
-                {file.fileName}
+<a href={`${import.meta.env.VITE_BACKEND_URL}${file.url}`} target="_blank" rel="noopener noreferrer">                {file.fileName}
               </a>
               <span className="ml-auto text-sm text-gray-500">{file.fileType}</span>
             </li>

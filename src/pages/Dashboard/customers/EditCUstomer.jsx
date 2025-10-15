@@ -22,8 +22,8 @@ function EditCustomer() {
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/customers/${id}`);
-        setCustomerData(response.data);
+       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/customers/${id}`);
+setCustomerData(response.data);
       } catch (err) {
         setError("Failed to fetch customer details.");
         console.error("Error fetching customer:", err);
@@ -46,8 +46,8 @@ function EditCustomer() {
     setError('');
 
     try {
-      await axios.put(`http://localhost:5000/api/customers/${id}`, customerData);
-      setLoading(false);
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/customers/${id}`, customerData);
+setLoading(false);
       navigate(`/dashboard/customers/${id}`); // Navigate back to the customer overview after edit
       toast.success('Customer updated successfully!');
     } catch (err) {

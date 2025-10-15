@@ -75,11 +75,11 @@ function AddOrganization() {
         formData.append('files', file); 
       });
 
-      await axios.post('http://localhost:5000/api/organizations', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/organizations`, formData, {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+});
 
       setLoading(false);
       setFiles([]);

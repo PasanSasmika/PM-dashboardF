@@ -22,7 +22,10 @@ function Login() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/login', formData);
+      const response = await axios.post(
+  `${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
+  formData
+);
       
       // Store token and user data in local storage
       localStorage.setItem('token', response.data.token);

@@ -47,8 +47,8 @@ function OrganizationOverview() {
 
   const fetchOrganization = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/organizations/${id}`);
-      setOrganization(response.data);
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/organizations/${id}`);
+setOrganization(response.data);
     } catch (err) {
       setError("Failed to fetch organization details.");
       console.error("Error fetching organization:", err);
@@ -68,8 +68,8 @@ function OrganizationOverview() {
   const handleDelete = async () => {
     if (window.confirm(`Are you sure you want to delete ${organization.name}? This will NOT delete associated projects or customers.`)) {
       try {
-        await axios.delete(`http://localhost:5000/api/organizations/${id}`);
-        toast.success('Organization deleted successfully!');
+        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/organizations/${id}`);
+toast.success('Organization deleted successfully!');
         navigate('/dashboard/organization'); 
       } catch (err) {
         toast.error('Failed to delete organization.');
@@ -91,11 +91,11 @@ function OrganizationOverview() {
         formData.append('files', file);
       });
 
-      await axios.post(`http://localhost:5000/api/organizations/${id}/projects/${projectId}/documents`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+     await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/organizations/${id}/projects/${projectId}/documents`, formData, {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+});
 
       toast.success('Documents added to project successfully!');
       setProjectDocFiles([]);
@@ -148,8 +148,8 @@ function OrganizationOverview() {
     }
 
     try {
-      await axios.post(`http://localhost:5000/api/organizations/${id}/projects`, newProject);
-      toast.success('Project added successfully!');
+     await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/organizations/${id}/projects`, newProject);
+toast.success('Project added successfully!');
       setNewProject({
         name: '',
         description: '',
@@ -172,8 +172,8 @@ function OrganizationOverview() {
   const handleDeleteProject = async (projectId) => {
     if (window.confirm('Are you sure you want to delete this project?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/organizations/${id}/projects/${projectId}`);
-        toast.success('Project deleted successfully!');
+        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/organizations/${id}/projects/${projectId}`);
+toast.success('Project deleted successfully!');
         fetchOrganization(); // Refresh
       } catch (err) {
         toast.error('Failed to delete project.');
@@ -337,7 +337,7 @@ function OrganizationOverview() {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
               {organization.documents.length > 0 ? (
                 organization.documents.map((doc, index) => (
-                  <a key={index} href={`http://localhost:5000${doc.url}`} target="_blank" rel="noopener noreferrer" className='flex flex-col items-start p-4 border rounded-lg hover:bg-gray-50 transition-colors hover:shadow-sm'>
+                  <a key={index} href={`${import.meta.env.VITE_BACKEND_URL}${doc.url}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-start p-4 border rounded-lg hover:bg-gray-50 transition-colors hover:shadow-sm">
                     <div className="flex justify-between items-center w-full mb-2">
                       <p className='font-medium text-gray-800'>{doc.fileName}</p>
                       <span className={`px-3 py-1 text-xs font-semibold rounded-full bg-indigo-100 text-indigo-800`}>
@@ -624,8 +624,7 @@ function OrganizationOverview() {
             <div className='grid grid-cols-1 gap-3 mb-4'>
               {project.documents.length > 0 ? (
                 project.documents.map((doc, dIndex) => (
-                  <a key={dIndex} href={`http://localhost:5000${doc.url}`} target="_blank" rel="noopener noreferrer" className='flex justify-between items-center p-3 border rounded-lg hover:bg-white text-sm transition-all duration-200 hover:shadow-sm'>
-                    <span className='truncate font-medium flex items-center'>
+<a key={dIndex} href={`${import.meta.env.VITE_BACKEND_URL}${doc.url}`} target="_blank" rel="noopener noreferrer" className="flex justify-between items-center p-3 border rounded-lg hover:bg-white text-sm transition-all duration-200 hover:shadow-sm">                    <span className='truncate font-medium flex items-center'>
                       <DocumentTextIcon className="h-4 w-4 mr-2 text-gray-400 flex-shrink-0" />
                       {doc.fileName}
                     </span>

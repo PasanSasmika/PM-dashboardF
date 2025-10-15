@@ -24,8 +24,8 @@ function CustomerOverview() {
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/customers/${id}`);
-        setCustomer(response.data);
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/customers/${id}`);
+setCustomer(response.data);
       } catch (err) {
         setError("Failed to fetch customer details.");
         console.error("Error fetching customer:", err);
@@ -46,8 +46,8 @@ function CustomerOverview() {
   const handleDelete = async () => {
     if (window.confirm(`Are you sure you want to delete ${customer.name}?`)) {
       try {
-        await axios.delete(`http://localhost:5000/api/customers/${id}`);
-        toast.success('Customer deleted successfully!');
+        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/customers/${id}`);
+toast.success('Customer deleted successfully!');
         navigate('/dashboard/customers'); // Navigate back to the customer list
       } catch (err) {
         toast.error('Failed to delete customer.');
