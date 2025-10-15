@@ -137,11 +137,11 @@ function Dashboard() {
   const sidebarLinks = [
     { name: "Dashboard", path: "/dashboard", icon: Squares2X2Icon },
     { name: "Projects", path: "/dashboard/projects", icon: BriefcaseIcon },
+    { name: "Organizations", path: "/dashboard/organization", icon: BuildingOffice2Icon },
     { name: "Customers", path: "/dashboard/customers", icon: UsersIcon },
     { name: "Resources", path: "/dashboard/resources", icon: DocumentDuplicateIcon },
     { name: "Profile", path: "/dashboard/profile", icon: UserIcon },
-    { name: "Organizations", path: "/dashboard/organization", icon: BuildingOffice2Icon },
-
+    
   ];
 
   return (
