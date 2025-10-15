@@ -41,10 +41,11 @@ function Dashboard() {
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState({
-    projects: [],
-    customers: [],
-    resources: [],
-  });
+  projects: [],
+  customers: [],
+  resources: [],
+  organizations: [], 
+});
   const [isSearching, setIsSearching] = useState(false);
   const navigate = useNavigate();
 
@@ -59,64 +60,33 @@ function Dashboard() {
 
   // Fetch search results when searchQuery changes
   useEffect(() => {
-    const fetchSearchResults = async () => {
-      if (searchQuery.trim() === "") {
-        setSearchResults({ projects: [], customers: [], resources: [] });
-        setIsSearching(false);
-        return;
-      }
+  const fetchSearchResults = async () => {
+    if (searchQuery.trim() === "") {
+      setSearchResults({ projects: [], customers: [], resources: [] });
+      setIsSearching(false);
+      return;
+    }
 
-      setIsSearching(true);
-      try {
-        // Fetch all data
-        const [projectsResponse, customersResponse, resourcesResponse] = await Promise.all([
-          axios.get("http://localhost:5000/api/projects"),
-          axios.get("http://localhost:5000/api/customers"),
-          axios.get("http://localhost:5000/api/resources"),
-        ]);
+    setIsSearching(true);
+    try {
+      // Single backend call for unified search
+      const response = await axios.get(
+        `http://localhost:5000/api/search?q=${encodeURIComponent(searchQuery.trim())}`
+      );
 
-        // Filter projects
-        const filteredProjects = projectsResponse.data.filter(
-          (project) =>
-            project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            project.description?.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+      setSearchResults(response.data); // Directly use backend response (already categorized)
+    } catch (err) {
+      console.error("Error fetching search results:", err);
+      toast.error("Failed to fetch search results.");
+      setSearchResults({ projects: [], customers: [], resources: [] });
+    } finally {
+      setIsSearching(false);
+    }
+  };
 
-        // Filter customers
-        const filteredCustomers = customersResponse.data.filter(
-          (customer) =>
-            customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            customer.contactPerson?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            customer.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            customer.phone?.includes(searchQuery) ||
-            customer.address?.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-
-        // Filter resources
-        const filteredResources = resourcesResponse.data.filter(
-          (resource) =>
-            resource.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            resource.files.some((file) =>
-              file.fileName.toLowerCase().includes(searchQuery.toLowerCase())
-            )
-        );
-
-        setSearchResults({
-          projects: filteredProjects,
-          customers: filteredCustomers,
-          resources: filteredResources,
-        });
-      } catch (err) {
-        console.error("Error fetching search results:", err);
-        toast.error("Failed to fetch search results.");
-      } finally {
-        setIsSearching(false);
-      }
-    };
-
-    const debounce = setTimeout(fetchSearchResults, 300); // Debounce to avoid excessive API calls
-    return () => clearTimeout(debounce);
-  }, [searchQuery]);
+  const debounce = setTimeout(fetchSearchResults, 300); // Debounce to avoid excessive API calls
+  return () => clearTimeout(debounce);
+}, [searchQuery]);
 
   const handleLogout = () => {
     setShowLogoutPopup(true);
