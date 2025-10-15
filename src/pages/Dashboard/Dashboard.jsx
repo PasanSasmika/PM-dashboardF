@@ -20,7 +20,6 @@ import DashboardContent from "./DashboardContent/DashboardContent";
 import Customer from "./customers/Customer";
 import Addcustomer from "./customers/AddCustomer";
 import CustomerOverview from "./customers/CustomerOverview";
-import EditCustomer from "./customers/EditCustomer";
 import EditProject from "./project/EditProject";
 import Resources from "./Resources/Resources";
 import AddResources from "./Resources/AddResources";
@@ -33,6 +32,7 @@ import Organization from "./Organizations/organizations";
 import AddOrganization from "./Organizations/addorganizations";
 import OrganizationOverview from "./Organizations/organizationOverview";
 import EditOrganization from "./Organizations/editOrganization";
+import EditCustomer from "./customers/EditCustomer";
 
 
 function Dashboard() {
