@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-function EditCustomer() {
+function EditCustomers() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [customerData, setCustomerData] = useState({
@@ -114,4 +114,4 @@ setLoading(false);
   );
 }
 
-export default EditCustomer;
+export default EditCustomers;

@@ -32,7 +32,7 @@ import Organization from "./Organizations/organizations";
 import AddOrganization from "./Organizations/addorganizations";
 import OrganizationOverview from "./Organizations/organizationOverview";
 import EditOrganization from "./Organizations/editOrganization";
-import EditCustomer from "./customers/EditCustomer";
+import EditCustomers from "./customers/EditCustomers";
 
 
 function Dashboard() {
@@ -283,7 +283,7 @@ function Dashboard() {
               <Route path="addresources" element={<AddResources />} />
               <Route path="customers/:id" element={<CustomerOverview />} />
               <Route path="resources/:id" element={<ResourceOverview />} />
-              <Route path="customers/edit/:id" element={<EditCustomer />} />
+              <Route path="customers/edit/:id" element={<EditCustomers />} />
               <Route path="projects/edit/:id" element={<EditProject />} />
               <Route path="organizations/edit/:id" element={<EditOrganization />} />
             </Routes>
