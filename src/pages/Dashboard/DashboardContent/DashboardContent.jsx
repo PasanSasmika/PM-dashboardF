@@ -129,8 +129,7 @@ const allProjectsResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}
                 setFavoriteProjects(bookmarkedProjectsData);
 
                 // Fetch all resources and filter for saved ones
-                const resourceResponse = await axios.get('http://localhost:5000/api/resources');
-                const allResources = resourceResponse.data;
+const resourceResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/resources`);                const allResources = resourceResponse.data;
                 const savedResourcesData = allResources.filter(resource => favoriteResourceIds.includes(resource._id));
                 setSavedResources(savedResourcesData);
 
