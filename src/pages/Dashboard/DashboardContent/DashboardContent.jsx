@@ -111,8 +111,7 @@ const DashboardContent = () => {
         const fetchAllData = async () => {
             try {
                 // Fetch all projects to get the counts
-                const allProjectsResponse = await axios.get('http://localhost:5000/api/projects');
-                const allProjects = allProjectsResponse.data;
+const allProjectsResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/projects`);                const allProjects = allProjectsResponse.data;
 
                 // Calculate project counts by status
                 const counts = allProjects.reduce((acc, project) => {
