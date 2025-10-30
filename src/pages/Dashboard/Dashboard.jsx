@@ -33,6 +33,8 @@ import AddOrganization from "./Organizations/addorganizations";
 import OrganizationOverview from "./Organizations/organizationOverview";
 import EditOrganization from "./Organizations/editOrganization";
 import EditCustomers from "./customers/EditCustomers";
+import AddInvoice from "./invoicing/AddInvoice";
+import InvoicePreview from "./invoicing/InvoicePreview";
 
 
 function Dashboard() {
@@ -286,6 +288,9 @@ function Dashboard() {
               <Route path="customers/edit/:id" element={<EditCustomers />} />
               <Route path="projects/edit/:id" element={<EditProject />} />
               <Route path="organizations/edit/:id" element={<EditOrganization />} />
+              <Route path="organizations/:orgId/projects/:projectId/invoice/new" element={<AddInvoice />} />
+             <Route path="organizations/:orgId/projects/:projectId/invoice/edit/:invoiceId" element={<AddInvoice />} />
+              <Route path="invoices/:orgId/:id" element={<InvoicePreview />} />
             </Routes>
           </div>
         </main>
