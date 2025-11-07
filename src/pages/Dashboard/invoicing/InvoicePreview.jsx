@@ -170,6 +170,7 @@ function InvoicePreview() {
         name: 'N/A', 
         role: 'N/A' 
     };
+    const currency = invoice.currency || 'LKR';
 
     return (
         <div className="p-8 font-second">
@@ -200,17 +201,21 @@ function InvoicePreview() {
             </div>
             
             {/* Invoice Template */}
-            <div ref={invoiceRef} className="p-10 border rounded-lg shadow-2xl bg-white min-h-[11in]">
+            <div ref={invoiceRef} className="p-6 border rounded-lg shadow-2xl bg-white min-h-[11in]">
                 
                 {/* Header */}
                 <div className="flex justify-between items-start mb-10">
-                    <div className="flex items-center">
-                        <div className="h-10 w-10 bg-[#4A90E2] rounded-full mr-3 flex items-center justify-center text-white text-lg font-bold">
-                            VSS
+                    <div className="flex flex-col items-start">
+                        <img src="/logoi.png" alt="Vogue Software Solutions" className="h-12 w-auto mb-2" />
+                        {/* <h1 className="text-xl font-bold font-main text-[#4A90E2]">
+                            {COMPANY_DETAILS.name}
+                        </h1> */}
+                        <div className="text-sm text-gray-600 mt-2 space-y-1">
+                            <p>{COMPANY_DETAILS.address}</p>
+                            <p>Phone: {COMPANY_DETAILS.phone}</p>
+                            <p>Email: {COMPANY_DETAILS.email}</p>
+                            <p>Web: {COMPANY_DETAILS.web}</p>
                         </div>
-                        <h1 className="text-xl font-bold font-main text-[#4A90E2]">
-                            VOGUE SOFTWARE SOLUTIONS
-                        </h1>
                     </div>
                     
                     <div className="text-right text-sm">
@@ -251,22 +256,25 @@ function InvoicePreview() {
                     <thead>
                         <tr className="text-left bg-gray-50 text-xs font-medium text-gray-700 uppercase tracking-wider">
                             <th className="py-3 px-4 w-1/2">Description</th>
-                            <th className="py-3 px-4 text-right">Unit Price ({invoice.currency})</th>
+                            <th className="py-3 px-4 text-right">Unit Price ({currency})</th>
                             <th className="py-3 px-4 text-center">Qty</th>
-                            <th className="py-3 px-4 text-right">Line Total ({invoice.currency})</th>
+                            <th className="py-3 px-4 text-right">Tax ({currency})</th>
+                            <th className="py-3 px-4 text-right">Line Total ({currency})</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
                         {invoice.lineItems?.map((item, index) => {
                             const unitPrice = Number(item.unitPrice) || 0;
                             const qty = Number(item.qty) || 0;
-                            const lineTotal = unitPrice * qty;
+                            const lineTax = 0; // No per-line tax in data
+                            const lineTotal = unitPrice * qty + lineTax;
                             
                             return (
                                 <tr key={index} className="text-sm text-gray-700">
                                     <td className="py-3 px-4">{item.description || '-'}</td>
                                     <td className="py-3 px-4 text-right">{unitPrice.toFixed(2)}</td>
                                     <td className="py-3 px-4 text-center">{qty}</td>
+                                    <td className="py-3 px-4 text-right">{lineTax.toFixed(2)}</td>
                                     <td className="py-3 px-4 text-right font-medium">
                                         {lineTotal.toFixed(2)}
                                     </td>
@@ -281,7 +289,7 @@ function InvoicePreview() {
                     {/* Notes & Bank Details */}
                     <div className="col-span-2 space-y-4">
                         <h3 className="text-lg font-bold text-gray-800">Bank Details</h3>
-                        <div className='text-sm p-4 border rounded-lg bg-gray-50'>
+                        <div className='text-sm p-4 border rounded-lg bg-gray-50 space-y-1'>
                             <p>Bank Name: <span className='font-medium'>{BANK_DETAILS.name}</span></p>
                             <p>Account Name: <span className='font-medium'>{BANK_DETAILS.accountName}</span></p>
                             <p>Account Number: <span className='font-medium'>{BANK_DETAILS.accountNumber}</span></p>
@@ -303,13 +311,13 @@ function InvoicePreview() {
                     <div className="space-y-2 text-right">
                         <div className='bg-gray-50 p-4 rounded-lg'>
                             <div className='flex justify-between text-sm py-1'>
-                                <span>Subtotal ({invoice.currency}):</span>
+                                <span>Subtotal ({currency}):</span>
                                 <span className='font-medium'>
                                     {Number(invoice.subTotal || 0).toFixed(2)}
                                 </span>
                             </div>
                             <div className='flex justify-between text-sm py-1'>
-                                <span>Discount ({invoice.currency}):</span>
+                                <span>Discount ({currency}):</span>
                                 <span className='font-medium text-red-600'>
                                     - {Number(invoice.discount || 0).toFixed(2)}
                                 </span>
@@ -321,7 +329,7 @@ function InvoicePreview() {
                                 </span>
                             </div>
                             <div className='flex justify-between text-lg font-bold pt-2 border-t border-gray-300'>
-                                <span>TOTAL ({invoice.currency}):</span>
+                                <span>TOTAL ({currency}):</span>
                                 <span className='text-xl text-[#4A90E2]'>
                                     {Number(invoice.total || 0).toFixed(2)}
                                 </span>
@@ -344,14 +352,21 @@ function InvoicePreview() {
                 )}
                 
                 <div className="mt-10">
-                    <div className="flex justify-between mt-10">
-                        <div className="w-1/3 border-b border-gray-400"></div>
-                        <div className="w-1/3 border-b border-gray-400"></div>
+                    <div className="grid grid-cols-2 gap-8">
+                        <div className="border-b border-gray-400"></div>
+                        <div className="border-b border-gray-400"></div>
                     </div>
-                    <div className="flex justify-between mt-2 text-sm text-gray-600">
-                        <span className='w-1/3 text-center'>Customer Signature</span>
-                        <span className='w-1/3 text-center'>Authorized Signature</span>
+                    <div className="grid grid-cols-2 gap-8 mt-2 text-sm text-gray-600">
+                        <span className='text-center'>Customer Signature</span>
+                        <span className='text-center'>Authorized Signature</span>
                     </div>
+                </div>
+
+                {/* Footer */}
+                <div className="mt-8 text-xs text-gray-500 text-center space-y-1">
+                    <p>This is a computer generated invoice serves as valid tax document.</p>
+                    <p>{COMPANY_DETAILS.name} | {COMPANY_DETAILS.web} | {COMPANY_DETAILS.phone} | {COMPANY_DETAILS.email}</p>
+                    <p>Business Registration No: PVOS1151 | VAT Registration: TAX-176287</p>
                 </div>
             </div>
         </div>
